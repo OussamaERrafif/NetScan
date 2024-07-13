@@ -7,21 +7,16 @@ import json
 class DiscoverHosts:
 
     def discover_hosts(network):
-        """
-        Discover active hosts in a network using ARP requests.
-
-        Args:
-            network (str): The network address or IP range to scan.
-
-        Returns:
-            list: A list of active IP addresses found in the network.
-        """
         arp = ARP(pdst=network)
         ether = Ether(dst="ff:ff:ff:ff:ff:ff")
-        packet = ether/arp
-        result = srp(packet, timeout=2, verbose=0)[0]
-        active_hosts = [(received.psrc, received.hwsrc) for sent, received in result if received.psrc != '192.168.1.1']
-        return active_hosts
+        packet = ether / arp
+        try:
+            result = srp(packet, timeout=2, verbose=0)[0]
+            active_hosts = [(received.psrc, received.hwsrc) for sent, received in result if received.psrc != '192.168.1.1']
+            return active_hosts
+        except Exception as e:
+            print(f"Error discovering hosts: {e}")
+            return []
 
     def scan_network(network):
         print(f"Discovering hosts in the network {network}...\n")
@@ -29,11 +24,11 @@ class DiscoverHosts:
         print(f"Active IPs: {active_ips}")
 
         #testing
-        active_ips = active_ips[:1]
+        active_ips = active_ips[:2]
 
         scan_results = []
 
-        for ip in active_ips:
+        for ip ,mac in active_ips:
             print(f"\nStarting scan on {ip}...\n")
             services = hostinfo.HostInfo.scan_services(ip)
             os = hostinfo.HostInfo.detect_os(ip)

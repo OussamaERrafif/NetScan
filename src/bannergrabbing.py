@@ -7,7 +7,7 @@ class BannerGrabbing:
             sock.settimeout(2)
             sock.connect((ip, port))
             banner = sock.recv(1024)
-            print(f"Banner from {ip}:{port}: {banner.decode().strip()}")
             sock.close()
+            return f"Banner from {ip}:{port}: {banner.decode().strip()}"
         except Exception as e:
-            print(f"Error grabbing banner from {ip}:{port}: {e}")
+            return f"Error grabbing banner from {ip}:{port}: {e}"

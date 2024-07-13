@@ -1,6 +1,7 @@
 from scapy.all import ARP, Ether, srp
 import nmap
 import ipaddress
+import bannergrabbing
 
 class HostInfo:
     def __init__(self, ip):
@@ -13,42 +14,39 @@ class HostInfo:
         return f"{self.ip} ({self.hostname})\n  OS: {self.os}\n  Services: {', '.join(self.services)}"
     
     def scan_services(ip):
-        """
-        Scan services on the specified IP address using nmap.
-
-        Args:
-            ip (str): The IP address to scan.
-
-        Returns:
-            List: A list containing the scanned services information.
-        """
         nm = nmap.PortScanner()
-        print(f"Scanning services on {ip[0]}...")
-        ip = ip[0]
+        print(f"Scanning services on {ip}...")
         nm.scan(ip, arguments='-sV')
         
-        services_info = []
+        output = {}
         
         for host in nm.all_hosts():
             host_info = {}
-            host_info['host'] = f'{host} ({nm[host].hostname()})'
+            host_info['hostname'] = nm[host].hostname()
             host_info['state'] = nm[host].state()
-            services = []
+            protocols = {}
             
             for proto in nm[host].all_protocols():
-                for port in nm[host][proto].keys():
+                protocol_info = {}
+                lport = nm[host][proto].keys()
+                services = []
+                
+                for port in lport:
                     service_info = {}
                     service_info['port'] = port
-                    service_info['service'] = nm[host][proto][port]["name"]
+                    service_info['name'] = nm[host][proto][port]["name"]
                     service_info['version'] = nm[host][proto][port]["version"]
+                    if service_info['name'].lower() != 'unknown':
+                        service_info['banner'] = bannergrabbing.BannerGrabbing.banner_grabbing(host, port)
                     services.append(service_info)
+                
+                protocol_info['services'] = services
+                protocols[proto] = protocol_info
             
-            host_info['services'] = services
-            services_info.append(host_info)
+            host_info['protocols'] = protocols
+            output[host] = host_info
         
-        print("Service scan complete.")
-        
-        return services_info
+        return output
 
 
     def detect_os(ip):
@@ -63,8 +61,7 @@ class HostInfo:
         """
         os_info = []
         nm = nmap.PortScanner()
-        print(f"Detecting OS on {ip[0]}...")
-        ip = ip[0]
+        print(f"Detecting OS on {ip}...")
         nm.scan(ip, arguments='-O')
         
         for host in nm.all_hosts():

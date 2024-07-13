@@ -3,7 +3,6 @@ from scapy.all import IP, ICMP, sr1
 
 class Traceroute:
     def traceroute(ip):
-        ip = ip[0]
         ttl = 1
         result = []
         while True:
@@ -13,7 +12,7 @@ class Traceroute:
             if reply is None:
                 break
             
-            result.append(f"{ttl}: {reply.src} ")
+            result.append(f"{ttl}: {reply.src} ({reply.type}) {reply.time} ms  ")
             
             if reply.src == ip:
                 break

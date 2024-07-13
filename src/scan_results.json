@@ -1,26 +1,73 @@
 [
   {
-    "ip": ["192.168.1.112", "08:d2:3e:24:45:af"],
-    "services": [
-      {
-        "host": "192.168.1.112 ()",
+    "ip": "192.168.1.112",
+    "services": {
+      "192.168.1.112": {
+        "hostname": "",
         "state": "up",
-        "services": [
-          { "port": 135, "service": "msrpc", "version": "" },
-          { "port": 139, "service": "netbios-ssn", "version": "" },
-          { "port": 445, "service": "microsoft-ds", "version": "" },
-          { "port": 1042, "service": "afrog", "version": "" },
-          { "port": 1043, "service": "boinc", "version": "" },
-          { "port": 1521, "service": "oracle-tns", "version": "11.2.0.1.0" }
-        ]
+        "protocols": {
+          "tcp": {
+            "services": [
+              {
+                "port": 135,
+                "name": "msrpc",
+                "version": "",
+                "banner": "Error grabbing banner from 192.168.1.112:135: timed out"
+              },
+              {
+                "port": 139,
+                "name": "netbios-ssn",
+                "version": "",
+                "banner": "Error grabbing banner from 192.168.1.112:139: timed out"
+              },
+              {
+                "port": 445,
+                "name": "microsoft-ds",
+                "version": "",
+                "banner": "Error grabbing banner from 192.168.1.112:445: timed out"
+              },
+              {
+                "port": 1042,
+                "name": "afrog",
+                "version": "",
+                "banner": "Error grabbing banner from 192.168.1.112:1042: timed out"
+              },
+              {
+                "port": 1043,
+                "name": "boinc",
+                "version": "",
+                "banner": "Error grabbing banner from 192.168.1.112:1043: timed out"
+              },
+              {
+                "port": 1521,
+                "name": "oracle-tns",
+                "version": "11.2.0.1.0",
+                "banner": "Error grabbing banner from 192.168.1.112:1521: timed out"
+              }
+            ]
+          }
+        }
       }
-    ],
+    },
     "os": [
       {
         "host": "192.168.1.112 ()",
         "os_classes": ["OS detection not available."]
       }
     ],
-    "traceroute": ["1: 192.168.1.112 "]
+    "traceroute": ["1: 192.168.1.112 (0) 1720875514.777085 ms  "]
+  },
+  {
+    "ip": "192.168.1.101",
+    "services": {
+      "192.168.1.101": { "hostname": "", "state": "up", "protocols": {} }
+    },
+    "os": [
+      {
+        "host": "192.168.1.101 ()",
+        "os_classes": ["OS detection not available."]
+      }
+    ],
+    "traceroute": ["1: 192.168.1.101 (0) 1720875522.103005 ms  "]
   }
 ]
