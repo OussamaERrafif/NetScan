@@ -52,5 +52,26 @@ NetScan is an advanced network scanning tool developed in Python, designed to pr
 1. **Activate Virtual Environment:**
    ```sh
    $ source <path_to_your_virtualenv>/bin/activate
-    ```
-2.**Install Dependencies:**
+   ```
+
+2. **Install Dependencies:**
+   ```sh
+   $ pip install -r requirements.txt
+   ```
+
+3. **Install Nmap:**
+   Download and install [Nmap](https://nmap.org/download.html) for additional scanning capabilities.
+
+4. **Install Npcap:**
+   Download and install [Npcap](https://nmap.org/npcap/) to enable packet capturing and transmission on Windows.
+
+## Example GitHub Repositories for Reference
+- **[Nmap](https://github.com/nmap/nmap)**: The quintessential network scanning tool.
+- **[Masscan](https://github.com/robertdavidgraham/masscan)**: High-speed port scanning tool.
+- **[ZMap](https://github.com/zmap/zmap)**: Fast single-packet network scanner.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+```
+
+Replace `<path_to_your_virtualenv>` with the actual path where your virtual environment resides. Adjust the installation steps based on specific instructions for Nmap and Npcap installation suitable for your project setup.
