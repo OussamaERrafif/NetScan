@@ -1,5 +1,6 @@
 from scapy.all import ARP, Ether, srp
 import hostinfo
+import asyncio
 import traceroute
 import json
 
@@ -18,29 +19,30 @@ class DiscoverHosts:
             print(f"Error discovering hosts: {e}")
             return []
 
-    def scan_network(network):
+    async def scan_host(ip, mac):
+        services = await hostinfo.HostInfo.scan_services(ip)
+        os = await hostinfo.HostInfo.detect_os(ip)
+        traceroute_result = await traceroute.Traceroute.traceroute(ip)
+        
+        return {
+            "ip": ip,
+            "mac": mac,
+            "services": services,
+            "os": os,
+            "traceroute": traceroute_result
+        }
+
+    async def scan_network(network):
         print(f"Discovering hosts in the network {network}...\n")
         active_ips = DiscoverHosts.discover_hosts(network)
-        print(f"Active IPs: {active_ips}")
 
-        #testing
-        active_ips = active_ips[:2]
+        # Limiting for testing purposes
+        # active_ips = active_ips[:2]
 
-        scan_results = []
-
-        for ip ,mac in active_ips:
-            print(f"\nStarting scan on {ip}...\n")
-            services = hostinfo.HostInfo.scan_services(ip)
-            os = hostinfo.HostInfo.detect_os(ip)
-            traceroute_result = traceroute.Traceroute.traceroute(ip)
-            scan_results.append({
-                "ip": ip,
-                "services": services,
-                "os": os,
-                "traceroute": traceroute_result
-            })
+        scan_tasks = [DiscoverHosts.scan_host(ip, mac) for ip, mac in active_ips]
+        scan_results = await asyncio.gather(*scan_tasks)
 
         with open("scan_results.json", "w") as file:
-            json.dump(scan_results, file)
+            json.dump(scan_results, file, indent=4)
 
         print("Scan results saved as scan_results.json")

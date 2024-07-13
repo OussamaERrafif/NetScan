@@ -1,7 +1,7 @@
 import socket
 
 class BannerGrabbing:
-    def banner_grabbing(ip, port):
+    async def banner_grabbing(ip, port):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(2)

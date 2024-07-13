@@ -2,7 +2,7 @@ from scapy.all import IP, ICMP, sr1
 
 
 class Traceroute:
-    def traceroute(ip):
+    async def traceroute(ip):
         ttl = 1
         result = []
         while True:

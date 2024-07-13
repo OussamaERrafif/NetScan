@@ -4,16 +4,7 @@ import ipaddress
 import bannergrabbing
 
 class HostInfo:
-    def __init__(self, ip):
-        self.ip = ip
-        self.hostname = None
-        self.os = None
-        self.services = []
-
-    def __str__(self):
-        return f"{self.ip} ({self.hostname})\n  OS: {self.os}\n  Services: {', '.join(self.services)}"
-    
-    def scan_services(ip):
+    async def scan_services(ip):
         nm = nmap.PortScanner()
         print(f"Scanning services on {ip}...")
         nm.scan(ip, arguments='-sV')
@@ -37,7 +28,7 @@ class HostInfo:
                     service_info['name'] = nm[host][proto][port]["name"]
                     service_info['version'] = nm[host][proto][port]["version"]
                     if service_info['name'].lower() != 'unknown':
-                        service_info['banner'] = bannergrabbing.BannerGrabbing.banner_grabbing(host, port)
+                        service_info['banner'] = await bannergrabbing.BannerGrabbing.banner_grabbing(host, port)
                     services.append(service_info)
                 
                 protocol_info['services'] = services
@@ -49,7 +40,7 @@ class HostInfo:
         return output
 
 
-    def detect_os(ip):
+    async def detect_os(ip):
         """
         Detects the operating system of a given IP address using nmap.
 
