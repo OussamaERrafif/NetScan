@@ -1,0 +1,26 @@
+[
+  {
+    "ip": ["192.168.1.112", "08:d2:3e:24:45:af"],
+    "services": [
+      {
+        "host": "192.168.1.112 ()",
+        "state": "up",
+        "services": [
+          { "port": 135, "service": "msrpc", "version": "" },
+          { "port": 139, "service": "netbios-ssn", "version": "" },
+          { "port": 445, "service": "microsoft-ds", "version": "" },
+          { "port": 1042, "service": "afrog", "version": "" },
+          { "port": 1043, "service": "boinc", "version": "" },
+          { "port": 1521, "service": "oracle-tns", "version": "11.2.0.1.0" }
+        ]
+      }
+    ],
+    "os": [
+      {
+        "host": "192.168.1.112 ()",
+        "os_classes": ["OS detection not available."]
+      }
+    ],
+    "traceroute": ["1: 192.168.1.112 "]
+  }
+]
