@@ -10,40 +10,40 @@ NetScan is an advanced network scanning tool developed in Python, designed to pr
 - **Traceroute:** Trace the path packets take to reach target devices.
 - **Banner Grabbing:** Gather service banners for detailed information.
 
-### 2. Parallel and Asynchronous Scanning
+### 2. Parallel and Asynchronous Scanning (under development)
 - **Multithreading or Asynchronous I/O:** Implement parallel scanning for faster results.
 - **Rate Limiting:** Control scanning rates to avoid network congestion or detection.
 
-### 3. Customizable Scan Profiles
+### 3. Customizable Scan Profiles (under development)
 - **Preset Profiles:** Quick, full, stealth scans for user convenience.
 - **Custom Profiles:** Define and save custom scanning parameters.
 
-### 4. Security Features
+### 4. Security Features (under development)
 - **Detection Evasion:** Techniques to evade firewalls and IDS.
 - **Encrypted Communication:** Secure scanner-target communications.
 
-### 5. Integration with Other Tools
+### 5. Integration with Other Tools (under development)
 - **Vulnerability Databases:** Integrate with CVE and other databases.
 - **Export Formats:** Support JSON, XML, and CSV for compatibility.
 
-### 6. User-Friendly Interface
+### 6. User-Friendly Interface (under development)
 - **Graphical User Interface (GUI):** Optional GUI for ease of use.
 - **Web Interface:** Access and control via Flask or Django.
 
-### 7. Visualization and Reporting
+### 7. Visualization and Reporting (under development)
 - **Interactive Network Map:** Visualize network topology.
 - **Detailed Reports:** Comprehensive, filterable reports.
 - **Real-Time Updates:** Monitor scan progress and results.
 
-### 8. Additional Protocol Support
+### 8. Additional Protocol Support (under development)
 - **IPv6 Support:** Extend scanning capabilities to IPv6.
 - **SNMP Scanning:** Gather detailed info from network devices.
 
-### 9. Automation and Scripting
+### 9. Automation and Scripting (under development)
 - **Scheduling Scans:** Automated scans at specified times.
 - **Scripting Interface:** API for advanced automation.
 
-### 10. Machine Learning and AI
+### 10. Machine Learning and AI (under development)
 - **Anomaly Detection:** ML for detecting network anomalies.
 - **Predictive Analysis:** AI-based threat predictions.
 
