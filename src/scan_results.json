@@ -47,7 +47,55 @@
             }
         ],
         "traceroute": [
-            "1: 192.168.8.1 (0) 1720959201.049726 ms  "
+            "1: 192.168.8.1 (0) 1720960045.234514 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.105",
+        "mac": "e2:84:28:37:f2:e7",
+        "services": {
+            "192.168.8.105": {
+                "hostname": "",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [],
+        "traceroute": [
+            "1: 192.168.8.105 (0) 1720960014.521545 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.104",
+        "mac": "f2:3c:5e:12:4e:d5",
+        "services": {
+            "192.168.8.104": {
+                "hostname": "",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 62078,
+                                "name": "tcpwrapped",
+                                "version": "",
+                                "banner": "Banner from 192.168.8.104:62078: "
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.104 ()",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.104 (0) 1720960023.337118 ms  "
         ]
     },
     {
@@ -80,41 +128,21 @@
             }
         ],
         "traceroute": [
-            "1: 192.168.8.102 (0) 1720959180.064713 ms  "
+            "1: 192.168.8.102 (0) 1720960036.64025 ms  "
         ]
     },
     {
-        "ip": "192.168.8.173",
-        "mac": "ea:8d:88:04:42:75",
+        "ip": "192.168.8.136",
+        "mac": "90:78:b2:83:17:97",
         "services": {
-            "192.168.8.173": {
-                "hostname": "OPPO-A96",
+            "192.168.8.136": {
+                "hostname": "Redmi-Note-8T",
                 "state": "up",
-                "protocols": {
-                    "tcp": {
-                        "services": [
-                            {
-                                "port": 5060,
-                                "name": "sip",
-                                "version": "",
-                                "banner": "Error grabbing banner from 192.168.8.173:5060: timed out"
-                            }
-                        ]
-                    }
-                }
+                "protocols": {}
             }
         },
-        "os": [
-            {
-                "host": "192.168.8.173 (OPPO-A96)",
-                "os_classes": [
-                    "OS detection not available."
-                ]
-            }
-        ],
-        "traceroute": [
-            "1: 192.168.8.173 (0) 1720959205.000284 ms  "
-        ]
+        "os": [],
+        "traceroute": []
     },
     {
         "ip": "192.168.8.192",
@@ -135,7 +163,20 @@
             }
         ],
         "traceroute": [
-            "1: 192.168.8.192 (0) 1720959244.500124 ms  "
+            "1: 192.168.8.192 (0) 1720960119.049604 ms  "
         ]
+    },
+    {
+        "ip": "192.168.8.193",
+        "mac": "e2:d7:5c:b1:c8:f0",
+        "services": {
+            "192.168.8.193": {
+                "hostname": "Galaxy-Tab-A7-Lite",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [],
+        "traceroute": []
     }
 ]

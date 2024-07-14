@@ -1,0 +1,192 @@
+[
+    {
+        "ip": "192.168.8.1",
+        "mac": "e2:c6:89:f5:22:c0",
+        "services": {
+            "192.168.8.1": {
+                "hostname": "inwi4g.home",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 53,
+                                "name": "tcpwrapped",
+                                "version": "",
+                                "banner": "Banner from 192.168.8.1:53: "
+                            },
+                            {
+                                "port": 80,
+                                "name": "http",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.1:80: timed out"
+                            },
+                            {
+                                "port": 443,
+                                "name": "http",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.1:443: timed out"
+                            },
+                            {
+                                "port": 3000,
+                                "name": "ppp",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.1:3000: timed out"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.1 (inwi4g.home)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.1 (0) 1720963158.443616 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.105",
+        "mac": "e2:84:28:37:f2:e7",
+        "services": {},
+        "os": [],
+        "traceroute": []
+    },
+    {
+        "ip": "192.168.8.104",
+        "mac": "f2:3c:5e:12:4e:d5",
+        "services": {
+            "192.168.8.104": {
+                "hostname": "",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 62078,
+                                "name": "tcpwrapped",
+                                "version": "",
+                                "banner": "Banner from 192.168.8.104:62078: "
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.104 ()",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.104 (0) 1720963137.212097 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.136",
+        "mac": "90:78:b2:83:17:97",
+        "services": {
+            "192.168.8.136": {
+                "hostname": "Redmi-Note-8T",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.136 (Redmi-Note-8T)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.136 (0) 1720963155.066371 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.192",
+        "mac": "7e:c5:ce:b4:0f:94",
+        "services": {
+            "192.168.8.192": {
+                "hostname": "A12-alkhas-b-Mohamd",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.192 (A12-alkhas-b-Mohamd)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.192 (0) 1720963210.201302 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.173",
+        "mac": "ea:8d:88:04:42:75",
+        "services": {
+            "192.168.8.173": {
+                "hostname": "OPPO-A96",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 5060,
+                                "name": "sip",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.173:5060: timed out"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.173 (OPPO-A96)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.173 (0) 1720963174.483081 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.200",
+        "mac": "2a:d2:34:ee:4b:b7",
+        "services": {
+            "192.168.8.200": {
+                "hostname": "lahya-3azi",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.200 (lahya-3azi)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.200 (0) 1720963186.758719 ms  "
+        ]
+    }
+]

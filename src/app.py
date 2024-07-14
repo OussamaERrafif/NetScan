@@ -1,6 +1,7 @@
 import asyncio
 import discoverhosts
 import getipaddr
+import rendertopo
 
 async def main():
     try:
@@ -9,6 +10,10 @@ async def main():
         await discoverhosts.DiscoverHosts.scan_network(str(ipaddr))
     except Exception as e:
         print(f"An error occurred: {e}")
+    finally:
+        rendertopo.main()
+        print("Scan complete.")
 
 if __name__ == "__main__":
         asyncio.run(main())
+        
