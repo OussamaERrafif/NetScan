@@ -1,43 +1,37 @@
 [
     {
-        "ip": "192.168.0.1",
-        "mac": "b0:0a:d5:40:d9:c0",
+        "ip": "192.168.8.1",
+        "mac": "e2:c6:89:f5:22:c0",
         "services": {
-            "192.168.0.1": {
-                "hostname": "",
+            "192.168.8.1": {
+                "hostname": "inwi4g.home",
                 "state": "up",
                 "protocols": {
                     "tcp": {
                         "services": [
                             {
-                                "port": 22,
-                                "name": "ssh",
-                                "version": "",
-                                "banner": "Error grabbing banner from 192.168.0.1:22: timed out"
-                            },
-                            {
-                                "port": 23,
-                                "name": "telnet",
-                                "version": "",
-                                "banner": "Error grabbing banner from 192.168.0.1:23: timed out"
-                            },
-                            {
                                 "port": 53,
-                                "name": "domain",
-                                "version": "2.84",
-                                "banner": "Error grabbing banner from 192.168.0.1:53: timed out"
+                                "name": "tcpwrapped",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.1:53: timed out"
                             },
                             {
                                 "port": 80,
                                 "name": "http",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.0.1:80: timed out"
+                                "banner": "Error grabbing banner from 192.168.8.1:80: timed out"
                             },
                             {
                                 "port": 443,
-                                "name": "https",
+                                "name": "http",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.0.1:443: timed out"
+                                "banner": "Error grabbing banner from 192.168.8.1:443: timed out"
+                            },
+                            {
+                                "port": 3000,
+                                "name": "ppp",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.1:3000: timed out"
                             }
                         ]
                     }
@@ -46,93 +40,102 @@
         },
         "os": [
             {
-                "host": "192.168.0.1 ()",
+                "host": "192.168.8.1 (inwi4g.home)",
                 "os_classes": [
                     "OS detection not available."
                 ]
             }
         ],
         "traceroute": [
-            "1: 192.168.0.1 (0) 1720915269.124391 ms  "
+            "1: 192.168.8.1 (0) 1720959201.049726 ms  "
         ]
     },
     {
-        "ip": "192.168.0.2",
-        "mac": "92:8a:14:c7:f1:7a",
+        "ip": "192.168.8.102",
+        "mac": "dc:b7:2e:10:de:c8",
         "services": {
-            "192.168.0.2": {
-                "hostname": "itel-A60s",
+            "192.168.8.102": {
+                "hostname": "Redmi-9T",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 5060,
+                                "name": "sip",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.102:5060: timed out"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.102 (Redmi-9T)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.102 (0) 1720959180.064713 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.173",
+        "mac": "ea:8d:88:04:42:75",
+        "services": {
+            "192.168.8.173": {
+                "hostname": "OPPO-A96",
+                "state": "up",
+                "protocols": {
+                    "tcp": {
+                        "services": [
+                            {
+                                "port": 5060,
+                                "name": "sip",
+                                "version": "",
+                                "banner": "Error grabbing banner from 192.168.8.173:5060: timed out"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.8.173 (OPPO-A96)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": [
+            "1: 192.168.8.173 (0) 1720959205.000284 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.8.192",
+        "mac": "7e:c5:ce:b4:0f:94",
+        "services": {
+            "192.168.8.192": {
+                "hostname": "A12-alkhas-b-Mohamd",
                 "state": "up",
                 "protocols": {}
             }
         },
         "os": [
             {
-                "host": "192.168.0.2 (itel-A60s)",
+                "host": "192.168.8.192 (A12-alkhas-b-Mohamd)",
                 "os_classes": [
                     "OS detection not available."
                 ]
             }
         ],
         "traceroute": [
-            "1: 192.168.0.2 (0) 1720915162.028008 ms  "
-        ]
-    },
-    {
-        "ip": "192.168.0.35",
-        "mac": "b0:a4:60:b6:29:fc",
-        "services": {
-            "192.168.0.35": {
-                "hostname": "DESKTOP-RQRP8TO",
-                "state": "up",
-                "protocols": {}
-            }
-        },
-        "os": [
-            {
-                "host": "192.168.0.35 (DESKTOP-RQRP8TO)",
-                "os_classes": [
-                    "OS detection not available."
-                ]
-            }
-        ],
-        "traceroute": []
-    },
-    {
-        "ip": "192.168.0.80",
-        "mac": "a2:f7:6b:b7:0e:67",
-        "services": {
-            "192.168.0.80": {
-                "hostname": "itel-A661L",
-                "state": "up",
-                "protocols": {}
-            }
-        },
-        "os": [
-            {
-                "host": "192.168.0.80 (itel-A661L)",
-                "os_classes": [
-                    "OS detection not available."
-                ]
-            }
-        ],
-        "traceroute": [
-            "1: 192.168.0.80 (0) 1720915282.753499 ms  "
-        ]
-    },
-    {
-        "ip": "192.168.0.104",
-        "mac": "aa:39:98:d4:33:22",
-        "services": {
-            "192.168.0.104": {
-                "hostname": "Infinix-SMART-7-HD",
-                "state": "up",
-                "protocols": {}
-            }
-        },
-        "os": [],
-        "traceroute": [
-            "1: 192.168.0.104 (0) 1720915291.154508 ms  "
+            "1: 192.168.8.192 (0) 1720959244.500124 ms  "
         ]
     }
 ]

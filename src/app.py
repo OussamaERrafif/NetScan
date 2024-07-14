@@ -1,10 +1,12 @@
 import asyncio
 import discoverhosts
+import getipaddr
 
 async def main():
     try:
         # network = input("Enter the network (e.g., 192.168.1.0/24): ")
-        await discoverhosts.DiscoverHosts.scan_network("192.168.0.161/24")
+        ipaddr = getipaddr.get_wifi_ip()
+        await discoverhosts.DiscoverHosts.scan_network(str(ipaddr))
     except Exception as e:
         print(f"An error occurred: {e}")
 
