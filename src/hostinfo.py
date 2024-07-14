@@ -1,10 +1,9 @@
 from scapy.all import ARP, Ether, srp
 import nmap
-import ipaddress
 import bannergrabbing
 
 class HostInfo:
-    async def scan_services(ip):
+    def scan_services(ip):
         nm = nmap.PortScanner()
         print(f"Scanning services on {ip}...")
         nm.scan(ip, arguments='-sV')
@@ -28,7 +27,7 @@ class HostInfo:
                     service_info['name'] = nm[host][proto][port]["name"]
                     service_info['version'] = nm[host][proto][port]["version"]
                     if service_info['name'].lower() != 'unknown':
-                        service_info['banner'] = await bannergrabbing.BannerGrabbing.banner_grabbing(host, port)
+                        service_info['banner'] = bannergrabbing.BannerGrabbing.banner_grabbing(host, port)
                     services.append(service_info)
                 
                 protocol_info['services'] = services
@@ -40,16 +39,7 @@ class HostInfo:
         return output
 
 
-    async def detect_os(ip):
-        """
-        Detects the operating system of a given IP address using nmap.
-
-        Args:
-            ip (str): The IP address to scan.
-
-        Returns:
-            List: A list containing the detected operating system information.
-        """
+    def detect_os(ip):
         os_info = []
         nm = nmap.PortScanner()
         print(f"Detecting OS on {ip}...")

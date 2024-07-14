@@ -1,49 +1,43 @@
 [
     {
-        "ip": "192.168.1.112",
-        "mac": "08:d2:3e:24:45:af",
+        "ip": "192.168.0.1",
+        "mac": "b0:0a:d5:40:d9:c0",
         "services": {
-            "192.168.1.112": {
+            "192.168.0.1": {
                 "hostname": "",
                 "state": "up",
                 "protocols": {
                     "tcp": {
                         "services": [
                             {
-                                "port": 135,
-                                "name": "msrpc",
+                                "port": 22,
+                                "name": "ssh",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.1.112:135: timed out"
+                                "banner": "Error grabbing banner from 192.168.0.1:22: timed out"
                             },
                             {
-                                "port": 139,
-                                "name": "netbios-ssn",
+                                "port": 23,
+                                "name": "telnet",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.1.112:139: timed out"
+                                "banner": "Error grabbing banner from 192.168.0.1:23: timed out"
                             },
                             {
-                                "port": 445,
-                                "name": "microsoft-ds",
-                                "version": "",
-                                "banner": "Error grabbing banner from 192.168.1.112:445: timed out"
+                                "port": 53,
+                                "name": "domain",
+                                "version": "2.84",
+                                "banner": "Error grabbing banner from 192.168.0.1:53: timed out"
                             },
                             {
-                                "port": 1042,
-                                "name": "afrog",
+                                "port": 80,
+                                "name": "http",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.1.112:1042: timed out"
+                                "banner": "Error grabbing banner from 192.168.0.1:80: timed out"
                             },
                             {
-                                "port": 1043,
-                                "name": "boinc",
+                                "port": 443,
+                                "name": "https",
                                 "version": "",
-                                "banner": "Error grabbing banner from 192.168.1.112:1043: timed out"
-                            },
-                            {
-                                "port": 1521,
-                                "name": "oracle-tns",
-                                "version": "11.2.0.1.0",
-                                "banner": "Error grabbing banner from 192.168.1.112:1521: timed out"
+                                "banner": "Error grabbing banner from 192.168.0.1:443: timed out"
                             }
                         ]
                     }
@@ -52,58 +46,93 @@
         },
         "os": [
             {
-                "host": "192.168.1.112 ()",
+                "host": "192.168.0.1 ()",
                 "os_classes": [
                     "OS detection not available."
                 ]
             }
         ],
         "traceroute": [
-            "1: 192.168.1.112 (0) 1720877501.590495 ms  "
+            "1: 192.168.0.1 (0) 1720915269.124391 ms  "
         ]
     },
     {
-        "ip": "192.168.1.103",
-        "mac": "ee:01:eb:4b:94:51",
+        "ip": "192.168.0.2",
+        "mac": "92:8a:14:c7:f1:7a",
         "services": {
-            "192.168.1.103": {
-                "hostname": "",
+            "192.168.0.2": {
+                "hostname": "itel-A60s",
                 "state": "up",
                 "protocols": {}
             }
         },
         "os": [
             {
-                "host": "192.168.1.103 ()",
+                "host": "192.168.0.2 (itel-A60s)",
                 "os_classes": [
                     "OS detection not available."
                 ]
             }
         ],
         "traceroute": [
-            "1: 192.168.1.103 (0) 1720877554.477428 ms  "
+            "1: 192.168.0.2 (0) 1720915162.028008 ms  "
         ]
     },
     {
-        "ip": "192.168.1.101",
-        "mac": "c6:8f:0b:d6:0f:3c",
+        "ip": "192.168.0.35",
+        "mac": "b0:a4:60:b6:29:fc",
         "services": {
-            "192.168.1.101": {
-                "hostname": "",
+            "192.168.0.35": {
+                "hostname": "DESKTOP-RQRP8TO",
                 "state": "up",
                 "protocols": {}
             }
         },
         "os": [
             {
-                "host": "192.168.1.101 ()",
+                "host": "192.168.0.35 (DESKTOP-RQRP8TO)",
+                "os_classes": [
+                    "OS detection not available."
+                ]
+            }
+        ],
+        "traceroute": []
+    },
+    {
+        "ip": "192.168.0.80",
+        "mac": "a2:f7:6b:b7:0e:67",
+        "services": {
+            "192.168.0.80": {
+                "hostname": "itel-A661L",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [
+            {
+                "host": "192.168.0.80 (itel-A661L)",
                 "os_classes": [
                     "OS detection not available."
                 ]
             }
         ],
         "traceroute": [
-            "1: 192.168.1.101 (0) 1720877561.338112 ms  "
+            "1: 192.168.0.80 (0) 1720915282.753499 ms  "
+        ]
+    },
+    {
+        "ip": "192.168.0.104",
+        "mac": "aa:39:98:d4:33:22",
+        "services": {
+            "192.168.0.104": {
+                "hostname": "Infinix-SMART-7-HD",
+                "state": "up",
+                "protocols": {}
+            }
+        },
+        "os": [],
+        "traceroute": [
+            "1: 192.168.0.104 (0) 1720915291.154508 ms  "
         ]
     }
 ]
