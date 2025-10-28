@@ -19,6 +19,48 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import networkx as nx
 
 
+class ToolTip:
+    """Create a tooltip for a given widget."""
+
+    def __init__(self, widget, text):
+        """
+        Initialize tooltip.
+
+        Args:
+            widget: The widget to attach the tooltip to
+            text (str): The tooltip text
+        """
+        self.widget = widget
+        self.text = text
+        self.tooltip_window = None
+        self.widget.bind("<Enter>", self.show_tooltip)
+        self.widget.bind("<Leave>", self.hide_tooltip)
+
+    def show_tooltip(self, event=None):
+        """Show the tooltip."""
+        if self.tooltip_window or not self.text:
+            return
+
+        x, y, _, _ = self.widget.bbox("insert") if hasattr(self.widget, 'bbox') else (0, 0, 0, 0)
+        x += self.widget.winfo_rootx() + 25
+        y += self.widget.winfo_rooty() + 25
+
+        self.tooltip_window = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)
+        tw.wm_geometry(f"+{x}+{y}")
+
+        label = tk.Label(tw, text=self.text, justify='left',
+                        background="#ffffe0", relief='solid', borderwidth=1,
+                        font=("Arial", 9))
+        label.pack(ipadx=1)
+
+    def hide_tooltip(self, event=None):
+        """Hide the tooltip."""
+        if self.tooltip_window:
+            self.tooltip_window.destroy()
+            self.tooltip_window = None
+
+
 class NetScanGUI:
     """Main GUI application for NetScan."""
 
@@ -75,8 +117,20 @@ class NetScanGUI:
         # Create main interface
         self.create_widgets()
 
+        # Create status bar
+        self.create_status_bar()
+
+        # Set up keyboard shortcuts
+        self.setup_keyboard_shortcuts()
+
         # Load scan history
         self.load_scan_history()
+
+        # Set window icon (if available)
+        try:
+            self.root.iconbitmap('icon.ico')
+        except:
+            pass  # Icon not found, continue without it
 
     def setup_styles(self):
         """Configure TTK styles for the application."""
@@ -122,6 +176,7 @@ class NetScanGUI:
         # Help menu
         help_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Help", menu=help_menu)
+        help_menu.add_command(label="Keyboard Shortcuts", command=self.show_shortcuts)
         help_menu.add_command(label="Documentation", command=self.show_documentation)
         help_menu.add_command(label="About", command=self.show_about)
 
@@ -157,8 +212,12 @@ class NetScanGUI:
         self.network_var = tk.StringVar()
         network_entry = ttk.Entry(config_frame, textvariable=self.network_var, width=30)
         network_entry.grid(row=0, column=1, sticky='ew', pady=5, padx=5)
-        ttk.Button(config_frame, text="Auto-detect",
-                  command=self.auto_detect_network).grid(row=0, column=2, pady=5)
+        ToolTip(network_entry, "Enter network in CIDR notation (e.g., 192.168.1.0/24)")
+
+        detect_button = ttk.Button(config_frame, text="Auto-detect",
+                  command=self.auto_detect_network)
+        detect_button.grid(row=0, column=2, pady=5)
+        ToolTip(detect_button, "Automatically detect your network interface")
 
         # Scan profile
         ttk.Label(config_frame, text="Scan Profile:").grid(row=1, column=0, sticky='w', pady=5)
@@ -167,12 +226,14 @@ class NetScanGUI:
                                      values=list(self.scan_profiles.keys()),
                                      state='readonly', width=28)
         profile_combo.grid(row=1, column=1, sticky='ew', pady=5, padx=5)
+        ToolTip(profile_combo, "Choose scan speed: Quick (fast), Normal (balanced), or Deep (thorough)")
 
         # Port range
         ttk.Label(config_frame, text="Port Range:").grid(row=2, column=0, sticky='w', pady=5)
         self.port_range_var = tk.StringVar(value="1-1000")
-        ttk.Entry(config_frame, textvariable=self.port_range_var,
-                 width=30).grid(row=2, column=1, sticky='ew', pady=5, padx=5)
+        port_entry = ttk.Entry(config_frame, textvariable=self.port_range_var, width=30)
+        port_entry.grid(row=2, column=1, sticky='ew', pady=5, padx=5)
+        ToolTip(port_entry, "Specify port range to scan (e.g., 1-1000, 80,443,8080)")
 
         config_frame.columnconfigure(1, weight=1)
 
@@ -184,10 +245,12 @@ class NetScanGUI:
                                        style='Action.TButton',
                                        command=self.start_scan)
         self.start_button.pack(side='left', padx=5)
+        ToolTip(self.start_button, "Start scanning the network (Ctrl+S)")
 
         self.stop_button = ttk.Button(button_frame, text="Stop Scan",
                                       command=self.stop_scan, state='disabled')
         self.stop_button.pack(side='left', padx=5)
+        ToolTip(self.stop_button, "Stop the current scan (Escape)")
 
         # Progress frame
         progress_frame = ttk.LabelFrame(scan_frame, text="Scan Progress", padding=10)
@@ -370,19 +433,23 @@ Created with Python, Tkinter, Scapy, and NetworkX
     def auto_detect_network(self):
         """Auto-detect the current network."""
         self.log_message("Detecting network...")
+        self.update_status("Detecting network...")
         try:
             network = getipaddr.get_wifi_ip()
             if network:
                 self.network_var.set(str(network))
                 self.log_message(f"Network detected: {network}")
+                self.update_status(f"Network detected: {network}")
                 messagebox.showinfo("Success", f"Network detected: {network}")
             else:
                 messagebox.showwarning("Warning",
                                       "Could not detect network. Please enter manually.")
                 self.log_message("Network detection failed")
+                self.update_status("Network detection failed")
         except Exception as e:
             messagebox.showerror("Error", f"Error detecting network: {str(e)}")
             self.log_message(f"Error: {str(e)}")
+            self.update_status("Error detecting network")
 
     def start_scan(self):
         """Start the network scan."""
@@ -487,6 +554,7 @@ Created with Python, Tkinter, Scapy, and NetworkX
         self.progress_var.set(100)
         self.status_var.set("Scan complete")
         self.log_message("Scan complete!")
+        self.update_status(f"Scan complete - Found {len(self.scan_results)} hosts")
 
         # Auto-switch to results tab
         self.notebook.select(1)
@@ -496,9 +564,10 @@ Created with Python, Tkinter, Scapy, and NetworkX
 
     def stop_scan(self):
         """Stop the current scan."""
-        if messagebox.askyesno("Confirm", "Are you sure you want to stop the scan?"):
+        if self.scan_running and messagebox.askyesno("Confirm", "Are you sure you want to stop the scan?"):
             self.scan_running = False
             self.log_message("Stopping scan...")
+            self.update_status("Scan stopped by user")
 
     def add_result_to_tree(self, result, index):
         """
@@ -935,6 +1004,100 @@ For more information, visit the project repository or README file.
             "Created with Python, Tkinter, Scapy, and NetworkX\n\n"
             "⚠️ Use responsibly and only on authorized networks."
         )
+
+    def create_status_bar(self):
+        """Create the status bar at the bottom of the window."""
+        self.status_bar = ttk.Frame(self.root)
+        self.status_bar.pack(side='bottom', fill='x')
+
+        # Left side - general status
+        self.status_label = ttk.Label(self.status_bar, text="Ready", relief='sunken', anchor='w')
+        self.status_label.pack(side='left', fill='x', expand=True, padx=2, pady=2)
+
+        # Right side - info
+        self.info_label = ttk.Label(self.status_bar, text="NetScan v2.0", relief='sunken', anchor='e')
+        self.info_label.pack(side='right', padx=2, pady=2)
+
+    def setup_keyboard_shortcuts(self):
+        """Set up keyboard shortcuts for the application."""
+        # Ctrl+N - New scan
+        self.root.bind('<Control-n>', lambda e: self.new_scan())
+
+        # Ctrl+O - Open results
+        self.root.bind('<Control-o>', lambda e: self.open_results())
+
+        # Ctrl+S - Start scan (when on scan tab)
+        self.root.bind('<Control-s>', lambda e: self.start_scan() if self.notebook.index('current') == 0 else None)
+
+        # Ctrl+Q - Quit
+        self.root.bind('<Control-q>', lambda e: self.root.quit())
+
+        # Ctrl+T - Toggle theme
+        self.root.bind('<Control-t>', lambda e: self.toggle_theme())
+
+        # F1 - Help
+        self.root.bind('<F1>', lambda e: self.show_documentation())
+
+        # F5 - Refresh topology
+        self.root.bind('<F5>', lambda e: self.refresh_topology())
+
+        # Escape - Stop scan
+        self.root.bind('<Escape>', lambda e: self.stop_scan() if self.scan_running else None)
+
+    def show_shortcuts(self):
+        """Show keyboard shortcuts dialog."""
+        shortcuts_window = tk.Toplevel(self.root)
+        shortcuts_window.title("Keyboard Shortcuts")
+        shortcuts_window.geometry("500x400")
+
+        # Create text widget
+        shortcuts_text = scrolledtext.ScrolledText(shortcuts_window, wrap=tk.WORD, padx=10, pady=10)
+        shortcuts_text.pack(fill='both', expand=True)
+
+        shortcuts = """
+Keyboard Shortcuts
+==================
+
+File Operations:
+  Ctrl+N        New Scan
+  Ctrl+O        Open Results
+  Ctrl+Q        Quit Application
+
+Scan Operations:
+  Ctrl+S        Start Scan (on Scan tab)
+  Escape        Stop Current Scan
+
+View:
+  Ctrl+T        Toggle Theme
+  F5            Refresh Topology
+
+Help:
+  F1            Show Documentation
+
+Tab Navigation:
+  Ctrl+Tab      Next Tab
+  Ctrl+Shift+Tab Previous Tab
+
+General:
+  Double-Click  Show detailed host information (on Results tab)
+        """
+
+        shortcuts_text.insert(1.0, shortcuts.strip())
+        shortcuts_text.config(state='disabled')
+
+        # Add close button
+        close_button = ttk.Button(shortcuts_window, text="Close", command=shortcuts_window.destroy)
+        close_button.pack(pady=10)
+
+    def update_status(self, message):
+        """
+        Update the status bar message.
+
+        Args:
+            message (str): Status message to display
+        """
+        self.status_label.config(text=message)
+        self.root.update_idletasks()
 
 
 def main():
