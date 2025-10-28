@@ -141,3 +141,9 @@ Thumbs.db
 
 # Scan results (can be regenerated)
 scan_results.json
+scan_results_*.json
+scan_history.json
+
+# Screenshots and test files
+gui_screenshot.png
+test_gui.py
