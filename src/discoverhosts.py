@@ -1,30 +1,63 @@
+"""
+Host discovery and network scanning module.
+
+This module provides functionality to discover active hosts on a network
+and scan them for detailed information including services, OS, and routes.
+"""
 from concurrent.futures import ThreadPoolExecutor
 from scapy.all import ARP, Ether, srp
-import hostinfo
 import asyncio
-import traceroute
 import json
+import hostinfo
+import traceroute
 
 
 class DiscoverHosts:
+    """Class for discovering and scanning network hosts."""
 
+    @staticmethod
     def discover_hosts(network):
+        """
+        Discover active hosts on a network using ARP scanning.
+
+        Args:
+            network (str): Network address in CIDR notation (e.g., '192.168.1.0/24')
+
+        Returns:
+            list: List of tuples containing (IP, MAC) for each discovered host
+        """
         arp = ARP(pdst=network)
         ether = Ether(dst="ff:ff:ff:ff:ff:ff")
         packet = ether / arp
         try:
             result = srp(packet, timeout=2, verbose=0)[0]
-            active_hosts = [(received.psrc, received.hwsrc) for sent, received in result if received.psrc != '192.168.1.1']
+            # Filter out router (adjust as needed, or make this configurable)
+            active_hosts = [
+                (received.psrc, received.hwsrc)
+                for sent, received in result
+                if received.psrc != '192.168.1.1'
+            ]
             return active_hosts
         except Exception as e:
             print(f"Error discovering hosts: {e}")
             return []
 
+    @staticmethod
     def scan_host(ip, mac):
-        services =  hostinfo.HostInfo.scan_services(ip)
+        """
+        Scan a single host for detailed information.
+
+        Args:
+            ip (str): IP address of the host
+            mac (str): MAC address of the host
+
+        Returns:
+            dict: Dictionary containing host information (IP, MAC, services, OS, traceroute)
+        """
+        services = hostinfo.HostInfo.scan_services(ip)
         os = hostinfo.HostInfo.detect_os(ip)
         traceroute_result = traceroute.Traceroute.traceroute(ip)
-        
+
         return {
             "ip": ip,
             "mac": mac,
@@ -33,16 +66,20 @@ class DiscoverHosts:
             "traceroute": traceroute_result
         }
 
+    @staticmethod
     async def scan_network(network):
+        """
+        Asynchronously scan all hosts on a network.
+
+        Args:
+            network (str): Network address in CIDR notation
+
+        Saves scan results to scan_results.json file.
+        """
         print(f"Discovering hosts in the network {network}...\n")
         active_ips = DiscoverHosts.discover_hosts(network)
         print(f"Found {len(active_ips)} active hosts in the network {network}")
         print(active_ips)
-
-        # Limiting for testing purposes
-        # print("Limiting to 3 hosts for testing purposes")
-        # active_ips = active_ips[:3]
-        
 
         # Using ThreadPoolExecutor to run scan_host concurrently
         with ThreadPoolExecutor(max_workers=2) as executor:
@@ -58,7 +95,7 @@ class DiscoverHosts:
             except Exception as e:
                 print(f"Error during scanning: {e}")
                 return
-        
+
         # Convert results to JSON-serializable format
         serializable_results = [dict(result) for result in scan_results]
 

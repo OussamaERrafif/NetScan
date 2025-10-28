@@ -1,13 +1,39 @@
+"""
+Network topology rendering module.
+
+This module provides functionality to visualize network topology from scan results
+using NetworkX and Matplotlib.
+"""
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 def load_scan_results(filename):
+    """
+    Load scan results from a JSON file.
+
+    Args:
+        filename (str): Path to the JSON file containing scan results
+
+    Returns:
+        dict: Parsed JSON data containing scan results
+    """
     with open(filename, 'r') as file:
         data = json.load(file)
     return data
 
+
 def create_network_topology(data):
+    """
+    Create a network topology graph from scan results.
+
+    Args:
+        data (list): List of dictionaries containing host information
+
+    Returns:
+        networkx.Graph: Graph representing the network topology
+    """
     G = nx.Graph()
 
     # Extract the router information (first entry in the list)
@@ -33,15 +59,29 @@ def create_network_topology(data):
 
     return G
 
+
 def draw_network_topology(G):
+    """
+    Draw and display the network topology graph.
+
+    Args:
+        G (networkx.Graph): Network topology graph to visualize
+    """
     pos = nx.spring_layout(G)
     labels = nx.get_node_attributes(G, 'label')
     colors = [G.nodes[node]['color'] for node in G.nodes]
 
-    nx.draw(G, pos, labels=labels, node_color=colors, with_labels=True, node_size=3000, font_size=10, font_color='white')
+    nx.draw(
+        G, pos, labels=labels, node_color=colors,
+        with_labels=True, node_size=3000, font_size=10, font_color='white'
+    )
     plt.show()
 
+
 def main():
+    """
+    Main function to load scan results and visualize network topology.
+    """
     # Load the scan results from the JSON file
     scan_results = load_scan_results('scan_results.json')
 
@@ -50,5 +90,3 @@ def main():
 
     # Draw the network topology
     draw_network_topology(G)
-
-
