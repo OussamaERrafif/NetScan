@@ -41,7 +41,15 @@ class ToolTip:
         if self.tooltip_window or not self.text:
             return
 
-        x, y, _, _ = self.widget.bbox("insert") if hasattr(self.widget, 'bbox') else (0, 0, 0, 0)
+        # Get widget position safely
+        try:
+            if isinstance(self.widget, (tk.Text, tk.Entry)):
+                x, y, _, _ = self.widget.bbox("insert")
+            else:
+                x, y = 0, 0
+        except (AttributeError, tk.TclError):
+            x, y = 0, 0
+
         x += self.widget.winfo_rootx() + 25
         y += self.widget.winfo_rooty() + 25
 
@@ -63,6 +71,12 @@ class ToolTip:
 
 class NetScanGUI:
     """Main GUI application for NetScan."""
+
+    # Tab indices for navigation
+    SCAN_TAB = 0
+    RESULTS_TAB = 1
+    TOPOLOGY_TAB = 2
+    SETTINGS_TAB = 3
 
     def __init__(self, root):
         """
@@ -129,7 +143,7 @@ class NetScanGUI:
         # Set window icon (if available)
         try:
             self.root.iconbitmap('icon.ico')
-        except:
+        except (FileNotFoundError, tk.TclError):
             pass  # Icon not found, continue without it
 
     def setup_styles(self):
@@ -557,14 +571,17 @@ Created with Python, Tkinter, Scapy, and NetworkX
         self.update_status(f"Scan complete - Found {len(self.scan_results)} hosts")
 
         # Auto-switch to results tab
-        self.notebook.select(1)
+        self.notebook.select(self.RESULTS_TAB)
 
         # Refresh topology
         self.refresh_topology()
 
     def stop_scan(self):
         """Stop the current scan."""
-        if self.scan_running and messagebox.askyesno("Confirm", "Are you sure you want to stop the scan?"):
+        if not self.scan_running:
+            return  # No scan to stop
+
+        if messagebox.askyesno("Confirm", "Are you sure you want to stop the scan?"):
             self.scan_running = False
             self.log_message("Stopping scan...")
             self.update_status("Scan stopped by user")
@@ -728,7 +745,7 @@ Created with Python, Tkinter, Scapy, and NetworkX
 
     def show_topology(self):
         """Switch to topology tab and refresh."""
-        self.notebook.select(2)
+        self.notebook.select(self.TOPOLOGY_TAB)
         self.refresh_topology()
 
     def export_results(self, format_type):
@@ -794,13 +811,15 @@ Created with Python, Tkinter, Scapy, and NetworkX
 
             messagebox.showinfo("Success", f"Loaded {len(self.scan_results)} results")
             self.log_message(f"Loaded results from {filename}")
+            self.update_status(f"Loaded {len(self.scan_results)} results from file")
 
             # Switch to results tab
-            self.notebook.select(1)
+            self.notebook.select(self.RESULTS_TAB)
 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load results: {str(e)}")
             self.log_message(f"Error loading results: {str(e)}")
+            self.update_status("Error loading results")
 
     def new_scan(self):
         """Start a new scan (clear current results)."""
@@ -812,8 +831,9 @@ Created with Python, Tkinter, Scapy, and NetworkX
             self.details_text.config(state='normal')
             self.details_text.delete(1.0, tk.END)
             self.details_text.config(state='disabled')
-            self.notebook.select(0)
+            self.notebook.select(self.SCAN_TAB)
             self.log_message("Ready for new scan")
+            self.update_status("Ready for new scan")
 
     def show_scan_history(self):
         """Show scan history window."""
@@ -1027,7 +1047,11 @@ For more information, visit the project repository or README file.
         self.root.bind('<Control-o>', lambda e: self.open_results())
 
         # Ctrl+S - Start scan (when on scan tab)
-        self.root.bind('<Control-s>', lambda e: self.start_scan() if self.notebook.index('current') == 0 else None)
+        def start_scan_shortcut(event):
+            if self.notebook.index('current') == self.SCAN_TAB:
+                self.start_scan()
+
+        self.root.bind('<Control-s>', start_scan_shortcut)
 
         # Ctrl+Q - Quit
         self.root.bind('<Control-q>', lambda e: self.root.quit())
@@ -1042,7 +1066,7 @@ For more information, visit the project repository or README file.
         self.root.bind('<F5>', lambda e: self.refresh_topology())
 
         # Escape - Stop scan
-        self.root.bind('<Escape>', lambda e: self.stop_scan() if self.scan_running else None)
+        self.root.bind('<Escape>', lambda e: self.stop_scan())
 
     def show_shortcuts(self):
         """Show keyboard shortcuts dialog."""
