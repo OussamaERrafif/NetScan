@@ -1,0 +1,25 @@
+{
+    "scan": {
+        "max_workers": 2,
+        "timeout": 2,
+        "rate_limit": null,
+        "exclude_ips": [
+            "192.168.1.1"
+        ]
+    },
+    "output": {
+        "format": "json",
+        "file": "scan_results.json",
+        "save_topology": true
+    },
+    "network": {
+        "interface": "Wi-Fi",
+        "subnet_mask": "/24"
+    },
+    "features": {
+        "service_detection": true,
+        "os_detection": true,
+        "banner_grabbing": true,
+        "traceroute": true
+    }
+}
