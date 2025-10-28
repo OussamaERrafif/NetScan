@@ -8,6 +8,7 @@ Before you begin, ensure you have:
 - Python 3.8 or higher installed
 - Administrator/root privileges (required for network scanning)
 - Nmap installed on your system
+- Tkinter (for GUI - usually comes with Python)
 
 ## Installation
 
@@ -36,11 +37,61 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Basic Usage
+## Using the GUI (Recommended for Beginners)
+
+### Launch the GUI Application
+
+The easiest way to use NetScan is through its graphical interface:
+
+```bash
+python launch_gui.py
+```
+
+Or:
+
+```bash
+cd src
+python gui.py
+```
+
+### GUI Quick Tour
+
+1. **Scan Tab**: Configure and run network scans
+   - Click "Auto-detect" to find your network automatically
+   - Select a scan profile (Quick, Normal, or Deep)
+   - Click "Start Scan" to begin
+   - Monitor progress in real-time
+
+2. **Results Tab**: View discovered hosts
+   - Browse all discovered devices in a table
+   - Double-click any host to see detailed information
+   - Export results using the export buttons
+
+3. **Topology Tab**: Visualize your network
+   - See a graphical representation of your network
+   - Identify the router and connected devices
+
+4. **Settings Tab**: Customize the application
+   - View scan profile details
+   - Change theme (light/dark)
+   - Read about NetScan features
+
+### First Scan with GUI
+
+1. Launch the GUI: `python launch_gui.py`
+2. In the Scan tab, click "Auto-detect" button
+3. Choose "Normal Scan" profile (recommended)
+4. Click "Start Scan"
+5. Wait for the scan to complete
+6. Switch to "Results" tab to see discovered hosts
+7. Click "Topology" tab to see the network map
+8. Export results if needed (File → Export)
+
+## Basic Usage (Command Line)
 
 ### Run a Simple Scan
 
-The simplest way to run NetScan is to let it auto-detect your network:
+The simplest way to run NetScan from command line is to let it auto-detect your network:
 
 ```bash
 cd src

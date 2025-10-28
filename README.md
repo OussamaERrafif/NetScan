@@ -4,19 +4,32 @@ NetScan is an advanced network scanning tool developed in Python, designed to pr
 
 ## Features
 
-### 1. Advanced Scanning Techniques
+### 1. Modern Graphical User Interface
+- **User-Friendly Design:** Modern tkinter-based GUI with tabbed interface
+- **Real-Time Monitoring:** Live progress tracking with detailed scan logs
+- **Interactive Results Viewer:** Sortable table with detailed host information
+- **Visual Network Topology:** Embedded matplotlib graphs showing network structure
+- **Theme Support:** Light and dark theme options
+- **Export Capabilities:** Multiple export formats (JSON, CSV, XML) directly from GUI
+- **Scan Profiles:** Pre-configured scan settings (Quick, Normal, Deep)
+- **Scan History:** Track and review all previous scans
+
+### 2. Advanced Scanning Techniques
 - **Service Detection:** Identify running services and their versions on open ports.
 - **Operating System Detection:** Determine the operating system of detected devices.
 - **Traceroute:** Trace the path packets take to reach target devices.
 - **Banner Grabbing:** Gather service banners for detailed information.
+- **Port Range Customization:** Configure specific port ranges to scan
 
-### 2. Parallel and Asynchronous Scanning
+### 3. Parallel and Asynchronous Scanning
 - **Multithreading or Asynchronous I/O:** Implements parallel scanning for faster results.
 - **Rate Limiting:** Control scanning rates to avoid network congestion or detection.
+- **Configurable Workers:** Adjust the number of concurrent scan threads
 
-### 3. Network Visualization
+### 4. Network Visualization
 - **Interactive Network Map:** Visualize network topology using NetworkX and Matplotlib.
 - **Detailed Reports:** Comprehensive, filterable reports saved in JSON format.
+- **GUI-Integrated Topology:** View network diagrams directly in the application
 
 ## Installation
 
@@ -57,7 +70,35 @@ NetScan is an advanced network scanning tool developed in Python, designed to pr
 
 ## Usage
 
-### Basic Network Scan
+### GUI Application (Recommended)
+
+NetScan now includes a modern graphical user interface for easier network scanning:
+
+```bash
+python launch_gui.py
+```
+
+Or from the src directory:
+
+```bash
+cd src
+python gui.py
+```
+
+**GUI Features:**
+- **Visual Scan Configuration**: Easy-to-use interface for network selection and scan profiles
+- **Real-time Progress**: Live progress bar and detailed scan logs
+- **Interactive Results**: Browse scan results in a sortable table, double-click for details
+- **Network Topology Visualization**: Interactive network map with matplotlib
+- **Export Options**: Export results to JSON, CSV, or XML formats
+- **Scan Profiles**: Quick, Normal, and Deep scan presets
+- **Scan History**: Track all previous scans with timestamps
+- **Theme Support**: Switch between light and dark themes
+- **Port Range Customization**: Configure which ports to scan
+
+![NetScan GUI](https://github.com/user-attachments/assets/a240db97-b50e-4503-a513-8f16e02428ec)
+
+### Command-Line Interface
 
 Run the main application to scan your local network:
 
@@ -95,13 +136,17 @@ print(f"Found {len(hosts)} hosts")
 ```
 NetScan/
 ├── src/
-│   ├── app.py              # Main application entry point
+│   ├── app.py              # Main CLI application entry point
+│   ├── gui.py              # Modern GUI application (NEW!)
 │   ├── discoverhosts.py    # Host discovery and scanning
 │   ├── getipaddr.py        # Network interface detection
 │   ├── hostinfo.py         # Service and OS detection
 │   ├── bannergrabbing.py   # Banner grabbing functionality
 │   ├── traceroute.py       # Traceroute implementation
-│   └── rendertopo.py       # Network topology visualization
+│   ├── rendertopo.py       # Network topology visualization
+│   ├── export.py           # Export functionality (JSON, CSV, XML)
+│   └── config.py           # Configuration management
+├── launch_gui.py           # GUI launcher script (NEW!)
 ├── requirements.txt        # Python dependencies
 ├── README.md              # This file
 └── .gitignore            # Git ignore rules
