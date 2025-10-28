@@ -1,2 +1,5 @@
-scapy
-python-nmap
+scapy>=2.5.0
+python-nmap>=0.7.1
+psutil>=5.9.0
+networkx>=3.0
+matplotlib>=3.5.0
